@@ -1,4 +1,4 @@
-# COSS
+# COSS (beta)
 
 A great way to deal with a large CSS codebase.
 
@@ -6,7 +6,7 @@ __Component Oriented Style Sheets__
 
 While building a large-scale application, it is really important to structure the CSS code in a maintainable way. But large-scale applications were once small applications and managing, mantaining and structuring the CSS was not a problem. There are methodologies for building CSS like BEM, OOCSS, SMACSS or Atomic. All of them are really helpful if implemented since the beginning but they are not really handy when it comes to CSS with no structure and counts more than 30 0000 lines.
 
-In MODOMOTO we came up with the idea of __COSS - Component Oriented Style Sheets__ framework.
+In MODOMOTO we came up with the idea of __COSS - Component Oriented Style Sheets__ framework. The idea of Component Oriented CSS is not new, but in here we focus on the practical application of it.
 
 __COSS__ is a way of rethinking, refactoring and building our CSS code base using components. The basic idea is to wrap parts of our HTML into components with a meaningful name as the component, style them in a separate CSS file that has the same name of the component and that only contains styles declarations for it (including media queries if necessary).
 
@@ -28,10 +28,11 @@ It is not allowed to define Pixels, Color Codes and Fonts Families in a componen
 
 The basic structure of files in COSS is ```assets/stylesheets/components```, ```assets/stylesheets/variables/```, ```assets/stylesheets/mixins/``` and ```assets/stylesheets/base.sass``` (where the shared CSS rules of the project are defined);
 
-When forcing the use of components, variables and mixins it is easier to make the css more consistent.
+When forcing the use of components, variables and mixins it is easier to make the css more consistent;
+
 
 ## HTML
-  In every HTML document should be possible to identify part of code that can become or are small components. A small component can be a 'payment form', an 'header menu', a 'login sidebar', a 'pennant' etc. Each of them should be identified with a self explanatory name.
+  In every HTML document should be possible to identify part of code that are can be small 'components'. A component can be a 'payment form', an 'header menu', a 'login sidebar', a 'pennant' etc. Each of them should be identified with a self explanatory name.
 
   The guideslines for creating HTML components are:
 
@@ -57,7 +58,7 @@ When forcing the use of components, variables and mixins it is easier to make th
 
 ## FILE STRUCTURE
 
-  components are defined only in ```assets/stylesheets/components```
+  Components are found only in a folder ```assets/stylesheets/components```
 
   After defining our new component in our HTML, we can create a new file in the ```assets/stylesheets/components``` that has exactly the same name of the component. For instance if we take the component ```sidebar_login``` , we should have a file named ```assets/stylesheets/components/sidebar_login.sass```
 
@@ -68,7 +69,7 @@ When forcing the use of components, variables and mixins it is easier to make th
   Example:
 
 
-  If we create a new mixin called border-radius, we should place it in a file in ```assets/stylesheets/mixins/border-radius.scss```
+  If we create a new mixin called border-radius, we should place it in a file in ```assets/stylesheets/mixins/border-radius.scss``` or ```assets/stylesheets/mixins/base.scss```
   ```SCSS
   @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
@@ -78,7 +79,7 @@ When forcing the use of components, variables and mixins it is easier to make th
   }
   ```
 
-  Variables are defined only in ```assets/stylesheets/variables```
+  Variables are defined only in the folder  ```assets/stylesheets/variables```
 
   The only way to define pixels and color codes, font names, and images in our CSS is by using varibles and mixins.
   Variables can be placed only in the folder variables and it is recommended to place them grouped by file and context.
@@ -98,7 +99,7 @@ When forcing the use of components, variables and mixins it is easier to make th
 ## CSS
   Using COSS as a framework/styleguides requires the use of SASS, LESS, variables and Mixins in our CSS code. It is not necessary that our project already uses SASS but it is required to start using COSS.
 
-  It is not allowed to use color codes or pixels in the CSS, only variables
+  It is not allowed to use color codes or pixels in the CSS, instead we use variables.
 
   ```SCSS
    // bad
@@ -171,7 +172,6 @@ When forcing the use of components, variables and mixins it is easier to make th
    @media (max-width: $max-width-mobile)
     .some_other_component
       button
-
   ```
 
   One component should contain only one class definition and its version by media queries, only nesting is allowed.
@@ -205,7 +205,11 @@ When forcing the use of components, variables and mixins it is easier to make th
       .login_link
   ```
 
-  __The use of important is not allowed and makes klingons cry.__ If there is the need to use ```!important``` it means that something is not well designed, we need to specialize more our component or ```!important``` is used in our context and it is very specialize. Instead of using ```!important``` in our component it is better to refactor other parts of our CSS where it is initially used.
+  __The use of ```!
+  important``` is not allowed and makes klingons cry.__
+
+
+  If there is the need to use ```!important``` it means that something is not well designed, we need to specialize more our component or ```!important``` is used in our context and it is very 'specialized'. Instead of using ```!important``` within component it is necessary refactor other parts of our CSS where it is initially used.
 
 ## MIGRATION STRATEGY (if your project is a mess)
 
@@ -228,19 +232,19 @@ tip: you may consider using some visual comparison tool like wraith to make sure
 
 Q: __Can't find a good name for my variables__
 
-A: It is not important to name variables with the best names since day 1. Their name can be changed over time with a simple 'search & replace'.
+A: It is not necessary to name variables with the best names since day 1. They can be changed over time with a simple 'search & replace'.
 
 ---
 
 Q: __Why pixels, font names and color codes are only allowed in variables files?__
 
-A: Forcing the use of variables pushes developers to be consistent and to find issue in the design or inconsistency. When you find yourself creating a new variable for a new font-size that was never used before, you can start questioning if that should really be a new variable or there is some other kind of issue for adding one more pixel to the base font size. The same goes for color codes and mixins.
+A: Forcing the use of variables pushes developers to be consistent and to find issues in the design or CSS inconsistencies. When you find yourself creating a new variable for a new ```font-size``` that was never used before, you can start questioning if that should really be a new variable or if there is some other kind of issue that needs to be addressed. The same goes for color codes and mixins.
 
 
 ---
 
 
-Q: __Can't find a good name my component__
+Q: __Can't find a good name my component. I am stuck.__
 
 A: Think of what the component does, how does it look like or how it is used. Can you describe it with 2 words?
 
@@ -249,13 +253,13 @@ A: Think of what the component does, how does it look like or how it is used. Ca
 
 Q: __How long does it take to delete all the old CSS and move completely to COSS?__
 
-A: The speed is a variable, and it is up to the developer(s). COSS is a transitioning framework and the final end result is not as important as the process. Being able to refactor, create new component from total mess, delete old CSS rules where necessary is already a goal. If, at some point, everything is a component and all the variables are defined and used, even better.
+A: The speed is a variable, and it is up to the developer(s). COSS is a transitioning framework and the final end result is not as important as the process. The goal of COSS is to 'make your CSS maintenable again'. Being able to refactor, create new component from total mess, delete old CSS rules where necessary is already a success. If, at some point, everything is a component and all the variables are defined and used, even better.
 
 ---
 
 Q: __My old CSS rules are overriding my component__
 
-A: When this happens the strategy is to re-define those rules inside the component itself (may look a bit reduntant). It is responsibility of the component to define the styles of object that it contains. If that means being protective and writing a bit more CSS and be more specific it is fine. When refactoring and deleting old CSS rules (non COSS) it will be possible to simplify also the components deleting unnecessary rules like ```position: relative```.
+A: When this happens the strategy is to re-define those rules inside the component itself (may look a bit reduntant). It is responsibility of the component to define the styles of object that it contains. If that means being protective and writing a bit more CSS and be more specific it is fine. When refactoring and deleting old CSS rules (non-COSS) it will be possible to simplify also the components deleting unnecessary rules (i.e. ```position: relative```).
 
 ---
 
